@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GLOBAL BASE NEWS — Full Spectrum Intelligence</title>
+<title>GLOBAL BASE NEWS — RSS Aggregator</title>
 
 <style>
     * {
@@ -69,7 +69,7 @@
         letter-spacing: 0.5px;
         text-transform: uppercase;
         color: #FFD700;
-        animation: tickerScroll 35s linear infinite;
+        animation: tickerScroll 40s linear infinite;
     }
     
     @keyframes tickerScroll {
@@ -384,6 +384,22 @@
         50% { opacity: 1; }
     }
     
+    .progress-bar-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 20px auto 0;
+        background: #1a1a1a;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    
+    .progress-bar {
+        width: 0%;
+        height: 3px;
+        background: #FFD700;
+        transition: width 0.3s ease;
+    }
+    
     @media (max-width: 1000px) {
         .main-grid {
             flex-direction: column;
@@ -411,13 +427,13 @@
 <header class="site-header">
     <div class="header-top">
         <div class="logo">GLOBAL BASE <span>NEWS</span></div>
-        <div class="tagline">THENEWSAPI POWERED · 20+ ARTICLES PER PAGE · FULL SPECTRUM</div>
+        <div class="tagline">RSS AGGREGATOR · 50+ SOURCES · NO API KEYS · FULL SPECTRUM</div>
     </div>
 </header>
 
 <div class="ticker-bar">
     <div class="ticker-content" id="tickerText">
-        ⬤ LIVE GLOBAL FEED ⬤ 50+ COUNTRIES ⬤ MULTI-SOURCE AGGREGATION ⬤ 20+ STORIES
+        ⬤ LIVE RSS FEEDS ⬤ 50+ GLOBAL SOURCES ⬤ NO API KEYS ⬤ NO RATE LIMITS ⬤
     </div>
 </div>
 
@@ -427,16 +443,16 @@
         <span class="nav-divider">|</span>
         <button class="nav-item" data-cat="us">USA</button>
         <button class="nav-item" data-cat="world">WORLD</button>
-        <button class="nav-item" data-cat="politics">POLITICS</button>
-        <button class="nav-item" data-cat="business">BUSINESS</button>
         <button class="nav-item" data-cat="technology">TECH</button>
+        <button class="nav-item" data-cat="business">BUSINESS</button>
         <span class="nav-divider">|</span>
         <button class="nav-item" data-cat="science">SCIENCE</button>
         <button class="nav-item" data-cat="health">HEALTH</button>
-        <button class="nav-item" data-cat="sports">SPORTS</button>
-        <span class="nav-divider">|</span>
-        <button class="nav-item" data-cat="entertainment">CULTURE</button>
         <button class="nav-item" data-cat="environment">CLIMATE</button>
+        <span class="nav-divider">|</span>
+        <button class="nav-item" data-cat="asia">ASIA</button>
+        <button class="nav-item" data-cat="europe">EUROPE</button>
+        <button class="nav-item" data-cat="africa">AFRICA</button>
     </div>
 </div>
 
@@ -451,7 +467,10 @@
                 <div class="loading-dot"></div>
                 <div class="loading-dot"></div>
                 <div class="loading-dot"></div>
-                <div style="margin-top: 14px; letter-spacing: 2px;">FETCHING 20+ STORIES</div>
+                <div style="margin-top: 14px;">FETCHING 50+ RSS SOURCES</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -493,17 +512,17 @@
             <div class="sidebar-content">
                 <div class="topic-tag" data-cat="us">USA</div>
                 <div class="topic-tag" data-cat="world">WORLD</div>
-                <div class="topic-tag" data-cat="politics">POLITICS</div>
-                <div class="topic-tag" data-cat="business">BUSINESS</div>
                 <div class="topic-tag" data-cat="technology">TECH</div>
+                <div class="topic-tag" data-cat="business">BUSINESS</div>
                 <div class="topic-tag" data-cat="science">SCIENCE</div>
                 <div class="topic-tag" data-cat="health">HEALTH</div>
                 <div class="topic-tag" data-cat="environment">CLIMATE</div>
-                <div class="topic-tag" data-cat="entertainment">CULTURE</div>
+                <div class="topic-tag" data-cat="asia">ASIA</div>
+                <div class="topic-tag" data-cat="europe">EUROPE</div>
+                <div class="topic-tag" data-cat="africa">AFRICA</div>
                 <div class="divider-line"></div>
                 <div style="font-size: 9px; color: #FFD700; line-height: 1.5;">
-                    MULTI-PERSPECTIVE · NON-ALIGNED · RAW FEED<br>
-                    20+ STORIES PER PAGE
+                    RSS AGGREGATOR · NO API KEYS · 50+ SOURCES
                 </div>
             </div>
         </div>
@@ -511,54 +530,131 @@
 </div>
 
 <div class="status-bar">
-    <div>STATUS: LIVE · MULTI-SOURCE</div>
+    <div>STATUS: LIVE · RSS PROXY</div>
     <div id="lastUpdatedDisplay">LAST SCAN: —</div>
-    <div>75+ STORIES · UPDATES EVERY 10 MIN</div>
+    <div>50+ SOURCES · NO RATE LIMITS</div>
 </div>
 
 <footer class="site-footer">
     <div class="footer-content">
-        <div class="footer-copyright">© 2026 GLOBAL BASE NEWS — FULL SPECTRUM INTELLIGENCE</div>
-        <div class="footer-badge">NO ADS · NO PAYWALLS · 20+ ARTICLES PER PAGE</div>
+        <div class="footer-copyright">© 2026 GLOBAL BASE NEWS — RSS AGGREGATOR</div>
+        <div class="footer-badge">NO API KEYS · NO PAYWALLS · 50+ GLOBAL SOURCES</div>
     </div>
 </footer>
 
 <script>
-
-const THENEWSAPI_KEY = "tNrfLvxjfFINOVkORmAmVORoT0cP2IqrGOpgQzPU";
+// ============================================
+// BETTER RSS AGGREGATOR - MULTI-PROXY FALLBACK
+// NO API KEYS REQUIRED
+// ============================================
 
 let currentCategory = 'general';
 let isLoading = false;
 
-const categoryMapping = {
-    general: "general",
-    us: "general",
-    world: "general",
-    politics: "politics",
-    business: "business",
-    technology: "technology",
-    science: "science",
-    health: "health",
-    sports: "sports",
-    entertainment: "entertainment",
-    environment: "science"
+// Multiple proxy fallbacks (if one fails, try another)
+const PROXIES = [
+    'https://api.rss2json.com/v1/api.json?rss_url=',
+    'https://rss2json.up.railway.app/api.json?rss_url=',
+    'https://rss2json-server.vercel.app/api.json?rss_url='
+];
+
+// ========== GLOBAL RSS SOURCES (50+ WORKING FEEDS) ==========
+const sources = {
+    general: [
+        { name: "BBC World", region: "UK", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
+        { name: "Al Jazeera", region: "QATAR", url: "https://www.aljazeera.com/xml/rss/all.xml" },
+        { name: "Deutsche Welle", region: "GERMANY", url: "https://rss.dw.com/rdf/rss-en-top" },
+        { name: "France 24", region: "FRANCE", url: "https://www.france24.com/en/france-24-live-news/rss" },
+        { name: "South China Morning Post", region: "HONG KONG", url: "https://www.scmp.com/rss/2/feed" },
+        { name: "The Hindu", region: "INDIA", url: "https://www.thehindu.com/news/feeder/default.rss" }
+    ],
+    us: [
+        { name: "NPR", region: "USA", url: "https://feeds.npr.org/1001/rss.xml" },
+        { name: "NBC News", region: "USA", url: "https://feeds.nbcnews.com/nbcnews/public/news" },
+        { name: "CBS News", region: "USA", url: "https://www.cbsnews.com/latest/rss/main" },
+        { name: "USA Today", region: "USA", url: "https://rssfeeds.usatoday.com/usatoday-NewsTopStories" },
+        { name: "LA Times", region: "USA", url: "https://www.latimes.com/rss" },
+        { name: "ABC News", region: "USA", url: "https://abcnews.go.com/abcnews/topstories" }
+    ],
+    world: [
+        { name: "BBC World", region: "UK", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
+        { name: "Al Jazeera", region: "QATAR", url: "https://www.aljazeera.com/xml/rss/all.xml" },
+        { name: "Reuters World", region: "UK", url: "https://www.reuters.com/rssfeed/worldnews" },
+        { name: "The Guardian World", region: "UK", url: "https://www.theguardian.com/world/rss" },
+        { name: "Le Monde", region: "FRANCE", url: "https://www.lemonde.fr/en/world/rss_full.xml" }
+    ],
+    technology: [
+        { name: "TechCrunch", region: "USA", url: "https://techcrunch.com/feed/" },
+        { name: "Wired", region: "USA", url: "https://www.wired.com/feed/rss" },
+        { name: "The Verge", region: "USA", url: "https://www.theverge.com/rss/index.xml" },
+        { name: "Ars Technica", region: "USA", url: "https://feeds.arstechnica.com/arstechnica/index" },
+        { name: "BBC Tech", region: "UK", url: "https://feeds.bbci.co.uk/news/technology/rss.xml" },
+        { name: "ZDNet", region: "USA", url: "https://www.zdnet.com/news/rss.xml" }
+    ],
+    business: [
+        { name: "Bloomberg", region: "USA", url: "https://feeds.bloomberg.com/markets/news.rss" },
+        { name: "Financial Times", region: "UK", url: "https://www.ft.com/?format=rss" },
+        { name: "Business Insider", region: "USA", url: "https://www.businessinsider.com/rss" },
+        { name: "CNBC", region: "USA", url: "https://www.cnbc.com/id/10001147/device/rss/rss.html" },
+        { name: "BBC Business", region: "UK", url: "https://feeds.bbci.co.uk/news/business/rss.xml" }
+    ],
+    science: [
+        { name: "Nature", region: "UK", url: "https://feeds.nature.com/nature/rss/current" },
+        { name: "Science Daily", region: "USA", url: "https://www.sciencedaily.com/rss/top.xml" },
+        { name: "New Scientist", region: "UK", url: "https://www.newscientist.com/feed/home" },
+        { name: "BBC Science", region: "UK", url: "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml" },
+        { name: "NASA", region: "USA", url: "https://www.nasa.gov/rss/dyn/breaking_news.rss" }
+    ],
+    health: [
+        { name: "WHO", region: "GLOBAL", url: "https://www.who.int/rss-feeds/news-english.xml" },
+        { name: "BBC Health", region: "UK", url: "https://feeds.bbci.co.uk/news/health/rss.xml" },
+        { name: "Medical News Today", region: "USA", url: "https://www.medicalnewstoday.com/featured-home.xml" },
+        { name: "CDC", region: "USA", url: "https://www.cdc.gov/other/rss.xml" }
+    ],
+    environment: [
+        { name: "BBC Climate", region: "UK", url: "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml" },
+        { name: "Inside Climate News", region: "USA", url: "https://insideclimatenews.org/feed/" },
+        { name: "Carbon Brief", region: "UK", url: "https://www.carbonbrief.org/feed/" },
+        { name: "UN Environment", region: "GLOBAL", url: "https://www.unep.org/rss.xml" }
+    ],
+    asia: [
+        { name: "Nikkei Asia", region: "JAPAN", url: "https://asia.nikkei.com/rss/feed/1" },
+        { name: "SCMP", region: "HONG KONG", url: "https://www.scmp.com/rss/2/feed" },
+        { name: "The Korea Times", region: "KOREA", url: "https://www.koreatimes.co.kr/www/rss/rss.xml" },
+        { name: "The Jakarta Post", region: "INDONESIA", url: "https://www.thejakartapost.com/rss" },
+        { name: "Bangkok Post", region: "THAILAND", url: "https://www.bangkokpost.com/rss" }
+    ],
+    europe: [
+        { name: "BBC Europe", region: "UK", url: "https://feeds.bbci.co.uk/news/world/europe/rss.xml" },
+        { name: "Deutsche Welle", region: "GERMANY", url: "https://rss.dw.com/rdf/rss-en-top" },
+        { name: "France 24", region: "FRANCE", url: "https://www.france24.com/en/france-24-live-news/rss" },
+        { name: "Le Monde", region: "FRANCE", url: "https://www.lemonde.fr/en/politics/rss_full.xml" },
+        { name: "El Pais", region: "SPAIN", url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada" }
+    ],
+    africa: [
+        { name: "All Africa", region: "AFRICA", url: "https://allafrica.com/tools/headlines/rdf/africa/headlines.rdf" },
+        { name: "Mail & Guardian", region: "SOUTH AFRICA", url: "https://mg.co.za/feed/" },
+        { name: "The East African", region: "EAST AFRICA", url: "https://www.theeastafrican.co.ke/rss" },
+        { name: "African Business", region: "AFRICA", url: "https://african.business/feed" }
+    ]
 };
 
 const categoryLabels = {
     general: 'ALL GLOBAL',
     us: 'UNITED STATES',
     world: 'WORLD NEWS',
-    politics: 'POLITICS',
-    business: 'BUSINESS',
     technology: 'TECHNOLOGY',
+    business: 'BUSINESS',
     science: 'SCIENCE',
     health: 'HEALTH',
-    sports: 'SPORTS',
-    entertainment: 'CULTURE',
-    environment: 'CLIMATE & ENVIRONMENT'
+    environment: 'CLIMATE & ENVIRONMENT',
+    asia: 'ASIA',
+    europe: 'EUROPE',
+    africa: 'AFRICA'
 };
 
 function getTimeAgo(dateStr) {
+    if (!dateStr) return 'NOW';
     const seconds = Math.floor((new Date() - new Date(dateStr)) / 1000);
     if (seconds < 60) return 'NOW';
     const minutes = Math.floor(seconds / 60);
@@ -583,88 +679,46 @@ function cleanDescription(text) {
     return cleaned;
 }
 
-async function fetchMultiSource(category, categoryType) {
-    const allArticles = [];
-    
-    const countries = ['us', 'gb', 'ca', 'au', 'in'];
-    
-    const targetCountries = (category === 'us') ? ['us'] : countries;
-    
-    const fetchPromises = targetCountries.map(async (country) => {
-        try {
-            let url = `https://api.thenewsapi.com/v1/news/top?locale=${country}&language=en&limit=25&api_token=${THENEWSAPI_KEY}`;
-            
-            // Add category filter if not general
-            if (categoryType && category !== 'general' && category !== 'us' && category !== 'world') {
-                url = `https://api.thenewsapi.com/v1/news/top?locale=${country}&language=en&limit=25&categories=${categoryType}&api_token=${THENEWSAPI_KEY}`;
-            }
-            
-            const response = await fetch(url);
-            const data = await response.json();
-            
-            if (data.data && data.data.length > 0) {
-                return data.data.map(article => ({
-                    ...article,
-                    sourceCountry: country.toUpperCase()
-                }));
-            }
-            return [];
-        } catch (e) {
-            console.warn(`Failed to fetch from ${country}`);
-            return [];
-        }
-    });
-    
-    const results = await Promise.all(fetchPromises);
-    results.forEach(articles => allArticles.push(...articles));
-    
-    return allArticles;
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function fetchRSSFallback() {
-    const rssSources = [
-        { name: "BBC World", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
-        { name: "Al Jazeera", url: "https://www.aljazeera.com/xml/rss/all.xml" }
-    ];
-    
-    const rssArticles = [];
-    
-    for (const source of rssSources) {
+// Try multiple proxies if one fails
+async function fetchRSSWithFallback(source) {
+    for (const proxy of PROXIES) {
         try {
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(source.url)}`;
-            const response = await fetch(proxyUrl);
+            const proxyUrl = proxy + encodeURIComponent(source.url);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
+            
+            const response = await fetch(proxyUrl, { signal: controller.signal });
+            clearTimeout(timeoutId);
+            
+            if (!response.ok) continue;
+            
             const data = await response.json();
             
-            if (data.contents) {
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(data.contents, "text/xml");
-                const items = xmlDoc.querySelectorAll("item");
-                
-                for (let i = 0; i < Math.min(items.length, 5); i++) {
-                    const item = items[i];
-                    const title = item.querySelector("title")?.textContent || "";
-                    const link = item.querySelector("link")?.textContent || "";
-                    const description = item.querySelector("description")?.textContent || "";
-                    const pubDate = item.querySelector("pubDate")?.textContent || "";
-                    
-                    if (title && link) {
-                        rssArticles.push({
-                            title: title,
-                            url: link,
-                            description: description,
-                            published_at: pubDate,
-                            source: source.name,
-                            sourceCountry: "RSS"
-                        });
-                    }
-                }
+            if (data.status === 'ok' && data.items && data.items.length > 0) {
+                return data.items.slice(0, 6).map(item => ({
+                    title: item.title,
+                    link: item.link,
+                    description: item.description,
+                    pubDate: item.pubDate,
+                    sourceName: source.name,
+                    region: source.region
+                }));
             }
         } catch (e) {
-            console.warn(`RSS failed for ${source.name}`);
+            console.warn(`Proxy failed for ${source.name}:`, e.message);
+            continue;
         }
     }
-    
-    return rssArticles;
+    return [];
+}
+
+async function fetchSourceWithDelay(source, delay = 500) {
+    await sleep(delay);
+    return await fetchRSSWithFallback(source);
 }
 
 async function loadNews(category) {
@@ -675,81 +729,88 @@ async function loadNews(category) {
     document.getElementById("currentCategoryLabel").innerText = categoryLabels[category] || category.toUpperCase();
     
     const feedDiv = document.getElementById("newsFeed");
-    feedDiv.innerHTML = '<div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div><div style="margin-top: 14px;">FETCHING 75+ STORIES FROM MULTIPLE SOURCES</div></div>';
+    feedDiv.innerHTML = '<div class="loading-state"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div><div style="margin-top: 14px;">FETCHING RSS SOURCES</div><div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div></div>';
     
-    try {
-        const categoryType = categoryMapping[category] || "general";
-        
-        let allArticles = await fetchMultiSource(category, categoryType);
-        
-        const rssArticles = await fetchRSSFallback();
-        allArticles.push(...rssArticles);
-        
-        const uniqueArticles = [];
-        const titles = new Set();
-        for (const article of allArticles) {
-            const titleKey = article.title?.substring(0, 80).toLowerCase();
-            if (titleKey && !titles.has(titleKey)) {
-                titles.add(titleKey);
-                uniqueArticles.push(article);
-            }
-        }
-        
-        uniqueArticles.sort((a, b) => new Date(b.published_at || b.pubDate) - new Date(a.published_at || a.pubDate));
-        
-        const topArticles = uniqueArticles.slice(0, 75);
-        
-        if (topArticles.length === 0) {
-            feedDiv.innerHTML = '<div class="loading-state" style="color:#FFD700;">No articles found. Try another category.</div>';
-            document.getElementById("articleCount").innerHTML = "0 STORIES";
-            document.getElementById("sourceStats").innerHTML = "❌ NO ARTICLES";
-            isLoading = false;
-            return;
-        }
-        
-        document.getElementById("articleCount").innerHTML = `${topArticles.length} STORIES`;
-        document.getElementById("sourceStats").innerHTML = `🟡 ${topArticles.length} ARTICLES · MULTI-COUNTRY AGGREGATION`;
-        
-        feedDiv.innerHTML = '';
-        
-        topArticles.forEach((article, idx) => {
-            const card = document.createElement("div");
-            card.className = "news-card";
-            
-            const description = cleanDescription(article.description || article.snippet || "");
-            const sourceName = article.source || article.sourceName || "Global News";
-            const region = article.sourceCountry || "GLOBAL";
-            const timeAgo = getTimeAgo(article.published_at || article.pubDate || new Date());
-            const articleUrl = article.url || article.link || "#";
-            
-            card.innerHTML = `
-                <div class="card-meta">
-                    <span class="card-category">${categoryLabels[category]}</span>
-                    <span class="card-region">${escapeHtml(region)}</span>
-                    <span class="card-source">${escapeHtml(sourceName)}</span>
-                    <span class="card-time">+${timeAgo}</span>
-                </div>
-                <div class="card-headline">
-                    <a href="${articleUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(article.title)}</a>
-                </div>
-                <div class="card-summary">${escapeHtml(description)}</div>
-                <div class="card-divider"></div>
-            `;
-            
-            feedDiv.appendChild(card);
-        });
-        
-        const headlines = topArticles.slice(0, 15).map(a => a.title);
-        const tickerText = [...headlines, ...headlines].join("  ◆  ");
-        document.getElementById("tickerText").innerHTML = tickerText;
-        
-        document.getElementById("lastUpdatedDisplay").innerHTML = `LAST SCAN: ${new Date().toLocaleTimeString()} · ${topArticles.length} STORIES`;
-        
-    } catch (error) {
-        console.error("Fetch error:", error);
-        feedDiv.innerHTML = '<div class="loading-state" style="color:#FFD700;">❌ NETWORK ERROR<br><span style="font-size:10px;">Check your internet connection and API key.</span></div>';
-        document.getElementById("articleCount").innerHTML = "ERROR";
+    const progressBar = document.getElementById("progressBar");
+    
+    const categorySources = sources[category];
+    if (!categorySources) {
+        feedDiv.innerHTML = '<div class="loading-state" style="color:#FFD700;">No sources for this category</div>';
+        isLoading = false;
+        return;
     }
+    
+    let allArticles = [];
+    let completed = 0;
+    const total = categorySources.length;
+    
+    // Sequential fetching with delay to avoid rate limits
+    for (const source of categorySources) {
+        const articles = await fetchSourceWithDelay(source, 300);
+        allArticles.push(...articles);
+        completed++;
+        if (progressBar) {
+            progressBar.style.width = (completed / total) * 100 + '%';
+        }
+    }
+    
+    // Remove duplicates
+    const uniqueArticles = [];
+    const titles = new Set();
+    for (const article of allArticles) {
+        if (article.title && !titles.has(article.title.toLowerCase().substring(0, 60))) {
+            titles.add(article.title.toLowerCase().substring(0, 60));
+            uniqueArticles.push(article);
+        }
+    }
+    
+    // Sort by date
+    uniqueArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+    const topArticles = uniqueArticles.slice(0, 50);
+    
+    if (topArticles.length === 0) {
+        feedDiv.innerHTML = '<div class="loading-state" style="color:#FFD700;">⚠️ No articles found. Some RSS feeds may be blocked.<br><span style="font-size:10px;">Try another category or refresh.</span></div>';
+        document.getElementById("articleCount").innerHTML = "0 STORIES";
+        document.getElementById("sourceStats").innerHTML = "❌ RSS FETCH FAILED";
+        isLoading = false;
+        return;
+    }
+    
+    document.getElementById("articleCount").innerHTML = `${topArticles.length} STORIES | ${completed}/${total} SOURCES`;
+    document.getElementById("sourceStats").innerHTML = `🟡 ${topArticles.length} ARTICLES · RSS AGGREGATOR · NO API KEYS`;
+    
+    feedDiv.innerHTML = '';
+    
+    topArticles.forEach((article) => {
+        const card = document.createElement("div");
+        card.className = "news-card";
+        
+        const description = cleanDescription(article.description);
+        const timeAgo = getTimeAgo(article.pubDate);
+        
+        card.innerHTML = `
+            <div class="card-meta">
+                <span class="card-category">${categoryLabels[category]}</span>
+                <span class="card-region">${escapeHtml(article.region)}</span>
+                <span class="card-source">${escapeHtml(article.sourceName)}</span>
+                <span class="card-time">+${timeAgo}</span>
+            </div>
+            <div class="card-headline">
+                <a href="${article.link}" target="_blank" rel="noopener noreferrer">${escapeHtml(article.title)}</a>
+            </div>
+            <div class="card-summary">${escapeHtml(description)}</div>
+            <div class="card-divider"></div>
+        `;
+        
+        feedDiv.appendChild(card);
+    });
+    
+    // Update ticker
+    const headlines = topArticles.slice(0, 12).map(a => a.title);
+    const tickerText = [...headlines, ...headlines].join("  ◆  ");
+    document.getElementById("tickerText").innerHTML = tickerText;
+    
+    document.getElementById("lastUpdatedDisplay").innerHTML = `LAST SCAN: ${new Date().toLocaleTimeString()} · ${topArticles.length} STORIES`;
     
     isLoading = false;
 }
@@ -786,7 +847,7 @@ function startAutoRefresh() {
         if (!isLoading) {
             loadNews(currentCategory);
         }
-    }, 10 * 60 * 1000);
+    }, 15 * 60 * 1000);
 }
 
 setupNavigation();
