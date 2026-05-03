@@ -454,6 +454,7 @@
         <button class="nav-item" data-cat="europe">EUROPE</button>
         <button class="nav-item" data-cat="africa">AFRICA</button>
         <span class="nav-divider">|</span>
+        <button class="nav-item" data-cat="leftcenter">LEFT/CENTER</button>
         <button class="nav-item" data-cat="right">RIGHT LEANING</button>
     </div>
 </div>
@@ -522,6 +523,7 @@
                 <div class="topic-tag" data-cat="asia">ASIA</div>
                 <div class="topic-tag" data-cat="europe">EUROPE</div>
                 <div class="topic-tag" data-cat="africa">AFRICA</div>
+                <div class="topic-tag" data-cat="leftcenter">LEFT/CENTER</div>
                 <div class="topic-tag" data-cat="right">RIGHT LEANING</div>
                 <div class="divider-line"></div>
                 <div style="font-size: 9px; color: #FFD700; line-height: 1.5;">
@@ -563,13 +565,21 @@ const PROXIES = [
 
 // ========== GLOBAL RSS SOURCES (50+ WORKING FEEDS) ==========
 const sources = {
-    general: [
+   general: [
         { name: "BBC World", region: "UK", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
         { name: "Al Jazeera", region: "QATAR", url: "https://www.aljazeera.com/xml/rss/all.xml" },
         { name: "Deutsche Welle", region: "GERMANY", url: "https://rss.dw.com/rdf/rss-en-top" },
         { name: "France 24", region: "FRANCE", url: "https://www.france24.com/en/france-24-live-news/rss" },
         { name: "South China Morning Post", region: "HONG KONG", url: "https://www.scmp.com/rss/2/feed" },
-        { name: "The Hindu", region: "INDIA", url: "https://www.thehindu.com/news/feeder/default.rss" }
+        { name: "The Hindu", region: "INDIA", url: "https://www.thehindu.com/news/feeder/default.rss" },
+        { name: "Fox News", region: "USA", url: "https://moxie.foxnews.com/google-publisher/latest.xml" },
+        { name: "New York Post", region: "USA", url: "https://nypost.com/news/feed/" },
+        { name: "Washington Examiner", region: "USA", url: "https://www.washingtonexaminer.com/rss" },
+        { name: "The Telegraph", region: "UK", url: "https://www.telegraph.co.uk/rss.xml" },
+        { name: "Daily Mail", region: "UK", url: "https://www.dailymail.co.uk/news/index.rss" },
+        { name: "The Sun", region: "UK", url: "https://www.thesun.co.uk/news/feed/" },
+        { name: "National Review", region: "USA", url: "https://www.nationalreview.com/feed/" },
+        { name: "The American Conservative", region: "USA", url: "https://www.theamericanconservative.com/feed/" }
     ],
     us: [
         { name: "NPR", region: "USA", url: "https://feeds.npr.org/1001/rss.xml" },
@@ -643,6 +653,14 @@ const sources = {
         { name: "The East African", region: "EAST AFRICA", url: "https://www.theeastafrican.co.ke/rss" },
         { name: "African Business", region: "AFRICA", url: "https://african.business/feed" }
     ],
+   leftcenter: [
+    { name: "BBC World", region: "UK", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
+    { name: "Al Jazeera", region: "QATAR", url: "https://www.aljazeera.com/xml/rss/all.xml" },
+    { name: "Deutsche Welle", region: "GERMANY", url: "https://rss.dw.com/rdf/rss-en-top" },
+    { name: "France 24", region: "FRANCE", url: "https://www.france24.com/en/france-24-live-news/rss" },
+    { name: "South China Morning Post", region: "HONG KONG", url: "https://www.scmp.com/rss/2/feed" },
+    { name: "The Hindu", region: "INDIA", url: "https://www.thehindu.com/news/feeder/default.rss" }
+],
     right: [
     { name: "Fox News", region: "USA", url: "https://moxie.foxnews.com/google-publisher/latest.xml" },
     { name: "New York Post", region: "USA", url: "https://nypost.com/news/feed/" },
@@ -667,6 +685,7 @@ const categoryLabels = {
     asia: 'ASIA',
     europe: 'EUROPE',
     africa: 'AFRICA',
+    leftcenter: 'LEFT/CENTER',
     right: 'RIGHT LEANING'
 };
 
