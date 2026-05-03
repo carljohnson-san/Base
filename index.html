@@ -453,6 +453,8 @@
         <button class="nav-item" data-cat="asia">ASIA</button>
         <button class="nav-item" data-cat="europe">EUROPE</button>
         <button class="nav-item" data-cat="africa">AFRICA</button>
+        <span class="nav-divider">|</span>
+        <button class="nav-item" data-cat="right">RIGHT</button>
     </div>
 </div>
 
@@ -520,6 +522,7 @@
                 <div class="topic-tag" data-cat="asia">ASIA</div>
                 <div class="topic-tag" data-cat="europe">EUROPE</div>
                 <div class="topic-tag" data-cat="africa">AFRICA</div>
+                <div class="topic-tag" data-cat="right">RIGHT</div>
                 <div class="divider-line"></div>
                 <div style="font-size: 9px; color: #FFD700; line-height: 1.5;">
                     NEWS · NO ADS · 50+ SOURCES
@@ -574,7 +577,10 @@ const sources = {
         { name: "CBS News", region: "USA", url: "https://www.cbsnews.com/latest/rss/main" },
         { name: "USA Today", region: "USA", url: "https://rssfeeds.usatoday.com/usatoday-NewsTopStories" },
         { name: "LA Times", region: "USA", url: "https://www.latimes.com/rss" },
-        { name: "ABC News", region: "USA", url: "https://abcnews.go.com/abcnews/topstories" }
+        { name: "ABC News", region: "USA", url: "https://abcnews.go.com/abcnews/topstories" },
+        { name: "Fox News", region: "USA", url: "https://moxie.foxnews.com/google-publisher/latest.xml" },
+        { name: "New York Post", region: "USA", url: "https://nypost.com/news/feed/" },
+        { name: "Washington Examiner", region: "USA", url: "https://www.washingtonexaminer.com/rss" }
     ],
     world: [
         { name: "BBC World", region: "UK", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
@@ -636,6 +642,16 @@ const sources = {
         { name: "Mail & Guardian", region: "SOUTH AFRICA", url: "https://mg.co.za/feed/" },
         { name: "The East African", region: "EAST AFRICA", url: "https://www.theeastafrican.co.ke/rss" },
         { name: "African Business", region: "AFRICA", url: "https://african.business/feed" }
+    ],
+    right: [
+    { name: "Fox News", region: "USA", url: "https://moxie.foxnews.com/google-publisher/latest.xml" },
+    { name: "New York Post", region: "USA", url: "https://nypost.com/news/feed/" },
+    { name: "Washington Examiner", region: "USA", url: "https://www.washingtonexaminer.com/rss" },
+    { name: "The Telegraph", region: "UK", url: "https://www.telegraph.co.uk/rss.xml" },
+    { name: "Daily Mail", region: "UK", url: "https://www.dailymail.co.uk/news/index.rss" },
+    { name: "The Sun", region: "UK", url: "https://www.thesun.co.uk/news/feed/" },
+    { name: "National Review", region: "USA", url: "https://www.nationalreview.com/feed/" },
+    { name: "The American Conservative", region: "USA", url: "https://www.theamericanconservative.com/feed/" }
     ]
 };
 
@@ -650,7 +666,8 @@ const categoryLabels = {
     environment: 'CLIMATE & ENVIRONMENT',
     asia: 'ASIA',
     europe: 'EUROPE',
-    africa: 'AFRICA'
+    africa: 'AFRICA',
+    right: 'RIGHT LEANING'
 };
 
 function getTimeAgo(dateStr) {
